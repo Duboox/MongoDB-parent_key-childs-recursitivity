@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+<body>
+    MongoDb recursividad
+</body>
+
+<script>
+    let categories = [
+        {
+            "_id": "5c9d82efb606851550bc83dd",
+            "name": "Tech",
+            "createdAt": "2019-03-29T02:29:03.152Z",
+            "updatedAt": "2019-03-29T02:29:03.152Z",
+            "__v": 0
+        },
+        {
+            "_id": "5c9d8301b606851550bc83df",
+            "name": "Computadoras",
+            "parent_key": "5c9d82efb606851550bc83dd",
+            "createdAt": "2019-03-29T02:29:21.294Z",
+            "updatedAt": "2019-03-29T02:29:21.294Z",
+            "__v": 0
+        },
+        {
+            "_id": "5c9d8316b606851550bc83e1",
+            "name": "Discos duros",
+            "parent_key": "5c9d8301b606851550bc83df",
+            "createdAt": "2019-03-29T02:29:42.154Z",
+            "updatedAt": "2019-03-29T02:29:42.154Z",
+            "__v": 0
+        },
+        {
+            "_id": "5c9d84884bda6b07f0cbe82b",
+            "name": "Discos duros 2",
+            "parent_key": "5c9d8316b606851550bc83e1",
+            "createdAt": "2019-03-29T02:35:52.056Z",
+            "updatedAt": "2019-03-29T02:35:52.056Z",
+            "__v": 0
+        },
+        {
+            "_id": "5c9da323218b1b0c7457cd4f",
+            "name": "Ropa",
+            "createdAt": "2019-03-29T04:46:27.717Z",
+            "updatedAt": "2019-03-29T04:46:27.717Z",
+            "__v": 0
+        },
+        {
+            "_id": "5c9da32e218b1b0c7457cd51",
+            "name": "Camisas",
+            "parent_key": "5c9da323218b1b0c7457cd4f",
+            "createdAt": "2019-03-29T04:46:38.524Z",
+            "updatedAt": "2019-03-29T04:46:38.524Z",
+            "__v": 0
+        }
+    ];
+
+function getNestedChildren(categories, parent_key) {
+    let newCategories = [];
+    categories.forEach(categorie => {
+    if(categorie.parent_key == parent_key) {
+            let childs = getNestedChildren(categories, categorie._id)
+
+            if(childs.length) {
+                categorie.childs = childs;
+            }
+            newCategories.push(categorie)
+        }
+    });
+    return newCategories
+}
+console.log(getNestedChildren(categories));
+</script>
+</html>
