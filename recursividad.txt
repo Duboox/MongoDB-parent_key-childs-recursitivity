@@ -1,0 +1,26 @@
+let arr = [
+    {id: 1, title: 'tech', parent: 0},
+    {id: 2, title: 'ropa', parent: 0},
+    {id: 3, title: 'computadoras', parent: 1},
+    {id: 4, title: 'discos duros', parent: 3},
+    {id: 5, title: 'discos duros 2', parent: 4},
+    {id: 6, title: 'discos duros 2,1', parent: 4},
+    {id: 7, title: 'fuentes', parent: 3},
+    {id: 8, title: 'camisas', parent: 2}
+];
+
+function getNestedChildren(arr, parent) {
+    var out = []
+    for(var i in arr) {
+        if(arr[i].parent == parent) {
+            var children = getNestedChildren(arr, arr[i].id)
+
+            if(children.length) {
+                arr[i].children = children
+            }
+            out.push(arr[i])
+        }
+    }
+    return out
+}
+console.log(getNestedChildren(arr, 0))
